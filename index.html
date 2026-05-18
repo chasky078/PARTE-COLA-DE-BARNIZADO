@@ -173,6 +173,49 @@
   </style>
 </head>
 <body>
+  <div id="turnoOverlay" style="position:fixed;inset:0;z-index:999;background:rgba(3,10,18,.92);backdrop-filter:blur(10px);display:flex;align-items:center;justify-content:center;padding:18px;">
+    <div style="width:min(520px,100%);background:linear-gradient(160deg,#10243c,#071426);border:1px solid rgba(255,255,255,.12);border-radius:30px;padding:28px;box-shadow:0 20px 50px rgba(0,0,0,.45)">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:18px">
+        <div>
+          <div style="font-size:34px;font-weight:950;letter-spacing:-.04em">INICIO TURNO</div>
+          <div style="color:#9fb6cf;font-weight:700">BZDO · Control Cola</div>
+        </div>
+        <div style="font-size:12px;color:#48e2ff;font-weight:900;letter-spacing:.12em">By Rubén D.® 268</div>
+      </div>
+
+      <div class="formGrid">
+        <div>
+          <label>Línea</label>
+          <select id="inicioLinea">
+            <option>LA15</option>
+            <option>LA16</option>
+            <option>LA17</option>
+            <option>LA20</option>
+            <option>LA21</option>
+            <option>LA25</option>
+            <option>LP02</option>
+            <option>LP03</option>
+            <option>LP04</option>
+          </select>
+        </div>
+        <div>
+          <label>Turno</label>
+          <select id="inicioTurno">
+            <option>Mañana</option>
+            <option>Tarde</option>
+            <option>Noche</option>
+          </select>
+        </div>
+        <div class="wide">
+          <label>Número operario</label>
+          <input id="inicioOperario" inputmode="numeric" placeholder="Ej: 27">
+        </div>
+      </div>
+
+      <br>
+      <button style="width:100%" onclick="startTurno()">ENTRAR AL SISTEMA</button>
+    </div>
+  </div>
   <div class="app">
     <section id="screenHome" class="hero">
       <div class="heroCard">
@@ -314,6 +357,10 @@
   </div>
 
   <div id="toast" class="toast">Guardado</div>
+
+  <div style="position:fixed;right:16px;bottom:14px;z-index:5;font-size:12px;font-weight:900;color:rgba(255,255,255,.28);letter-spacing:.08em;pointer-events:none">
+    By Rubén D.® 268
+  </div>
 
   <script>
     const STORAGE_KEY = 'BZDO_BETA_TIRAJES_V1';
@@ -629,6 +676,25 @@
       persist();
       toast('Tiraje borrado');
       openPanel(currentLine);
+    }
+
+    function startTurno(){
+      const linea = $('inicioLinea').value;
+      const turno = $('inicioTurno').value;
+      const operario = $('inicioOperario').value.trim();
+
+      if(!operario){
+        toast('Mete número operario');
+        return;
+      }
+
+      localStorage.setItem('BZDO_OPERARIO_ACTUAL', operario);
+      localStorage.setItem('BZDO_TURNO_ACTUAL', turno);
+      localStorage.setItem('BZDO_LINEA_ACTUAL', linea);
+
+      $('turnoOverlay').style.display = 'none';
+      openPanel(linea);
+      toast(`Turno iniciado · Operario ${operario}`);
     }
 
     renderLines();

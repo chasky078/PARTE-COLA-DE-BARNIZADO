@@ -3,701 +3,161 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
-  <meta name="theme-color" content="#071426" />
-  <title>BZDO Control Cola - Beta</title>
+  <meta name="theme-color" content="#06111f" />
+  <title>BZDO Control Cola - Beta Mejorada</title>
   <style>
     :root{
-      --bg:#06111f;
-      --bg2:#0a1b31;
-      --panel:#10243c;
-      --panel2:#132b48;
-      --line:#24496e;
-      --text:#f4f8ff;
-      --muted:#9fb6cf;
-      --blue:#25a8ff;
-      --blue2:#0077d9;
-      --green:#29d17d;
-      --yellow:#ffd34d;
-      --orange:#ff9d33;
-      --red:#ff5b6e;
-      --cyan:#48e2ff;
-      --shadow: 0 18px 45px rgba(0,0,0,.35);
+      --bg:#06111f; --bg2:#0a1b31; --panel:#10243c; --panel2:#132b48;
+      --line:#24496e; --text:#f4f8ff; --muted:#9fb6cf; --blue:#25a8ff;
+      --blue2:#0077d9; --green:#29d17d; --yellow:#ffd34d; --red:#ff5b6e;
+      --cyan:#48e2ff; --orange:#ff9d33; --shadow:0 18px 45px rgba(0,0,0,.38);
       --radius:22px;
     }
-
     *{box-sizing:border-box}
     html,body{margin:0;min-height:100%;background:var(--bg);color:var(--text);font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
     body{
       background:
-        radial-gradient(circle at top left, rgba(37,168,255,.22), transparent 36%),
-        radial-gradient(circle at bottom right, rgba(0,119,217,.20), transparent 32%),
+        radial-gradient(circle at 15% 0%, rgba(37,168,255,.22), transparent 34%),
+        radial-gradient(circle at 100% 100%, rgba(0,119,217,.22), transparent 35%),
         linear-gradient(145deg,#050b14,#071426 45%,#0b1f37);
       padding:18px;
     }
+    .app{max-width:1180px;margin:0 auto;padding-bottom:95px}.hidden{display:none!important}
+    button,.btn{border:0;color:white;font-weight:950;letter-spacing:.02em;border-radius:18px;padding:15px 18px;background:linear-gradient(135deg,var(--blue),var(--blue2));box-shadow:0 12px 28px rgba(0,119,217,.32);cursor:pointer;min-height:54px;font-size:15px}
+    button:active{transform:scale(.98)}.btnGhost{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.13);box-shadow:none;color:#e8f4ff}.btnDanger{background:linear-gradient(135deg,#ff5b6e,#b80d26)}.btnGreen{background:linear-gradient(135deg,#29d17d,#0d8f4f)}.btnYellow{background:linear-gradient(135deg,#ffd34d,#c97900);color:#132033}.btnOrange{background:linear-gradient(135deg,#ff9d33,#c45200)}
 
-    .app{max-width:1180px;margin:0 auto;padding-bottom:90px}
-    .hidden{display:none!important}
+    .splash{min-height:92vh;display:flex;align-items:center;justify-content:center;text-align:center;position:relative;overflow:hidden}
+    .splash::before{content:"BARNIZADO";position:absolute;font-size:13vw;font-weight:950;letter-spacing:.02em;color:rgba(255,255,255,.035);transform:rotate(-8deg);white-space:nowrap;pointer-events:none}
+    .splashCard{position:relative;width:min(760px,100%);padding:42px 26px;border:1px solid rgba(255,255,255,.12);border-radius:34px;background:linear-gradient(160deg,rgba(16,36,60,.92),rgba(5,14,27,.90));box-shadow:var(--shadow);backdrop-filter:blur(12px)}
+    .logoCircle{width:88px;height:88px;border-radius:28px;margin:0 auto 18px;background:linear-gradient(145deg,#eaf7ff,#81d8ff 55%,#1079d9);display:grid;place-items:center;color:#06111f;font-weight:1000;font-size:28px;box-shadow:0 18px 34px rgba(37,168,255,.25), inset 0 0 18px rgba(255,255,255,.45)}
+    .badge{display:inline-flex;gap:8px;align-items:center;padding:8px 14px;border:1px solid rgba(72,226,255,.35);border-radius:999px;color:#dff9ff;background:rgba(72,226,255,.08);font-weight:900;font-size:12px;letter-spacing:.12em}.splash h1{margin:18px 0 8px;font-size:clamp(36px,7vw,78px);line-height:.9;letter-spacing:-.05em}.sub{color:var(--muted);font-size:18px;margin:0 0 28px;font-weight:700}.waterBig{font-size:13px;color:rgba(255,255,255,.55);font-weight:950;letter-spacing:.08em;margin-top:18px}
 
-    .hero{
-      min-height:92vh;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      text-align:center;
-      position:relative;
-      overflow:hidden;
-    }
-    .hero::before{
-      content:"BZDO";
-      position:absolute;
-      font-size:20vw;
-      font-weight:950;
-      letter-spacing:.04em;
-      color:rgba(255,255,255,.035);
-      transform:rotate(-8deg);
-      pointer-events:none;
-    }
-    .heroCard{
-      position:relative;
-      width:min(720px,100%);
-      padding:42px 26px;
-      border:1px solid rgba(255,255,255,.12);
-      border-radius:32px;
-      background:linear-gradient(160deg,rgba(16,36,60,.9),rgba(5,14,27,.88));
-      box-shadow:var(--shadow);
-      backdrop-filter: blur(12px);
-    }
-    .badge{display:inline-flex;gap:8px;align-items:center;padding:8px 14px;border:1px solid rgba(72,226,255,.35);border-radius:999px;color:#dff9ff;background:rgba(72,226,255,.08);font-weight:800;font-size:12px;letter-spacing:.12em}
-    h1{margin:18px 0 6px;font-size:clamp(32px,6vw,68px);line-height:.95;letter-spacing:-.04em}
-    .sub{color:var(--muted);font-size:18px;margin:0 0 30px}
-
-    button,.btn{
-      border:0;
-      color:white;
-      font-weight:900;
-      letter-spacing:.02em;
-      border-radius:18px;
-      padding:15px 18px;
-      background:linear-gradient(135deg,var(--blue),var(--blue2));
-      box-shadow:0 12px 28px rgba(0,119,217,.32);
-      cursor:pointer;
-      min-height:54px;
-      font-size:15px;
-    }
-    button:active{transform:scale(.98)}
-    .btnGhost{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.13);box-shadow:none;color:#e8f4ff}
-    .btnDanger{background:linear-gradient(135deg,#ff5b6e,#b80d26)}
-    .btnGreen{background:linear-gradient(135deg,#29d17d,#0d8f4f)}
-    .btnYellow{background:linear-gradient(135deg,#ffd34d,#c97900);color:#132033}
+    .turnoOverlay{position:fixed;inset:0;z-index:999;background:rgba(3,10,18,.94);backdrop-filter:blur(10px);display:flex;align-items:center;justify-content:center;padding:18px}.turnoBox{width:min(560px,100%);background:linear-gradient(160deg,#10243c,#071426);border:1px solid rgba(255,255,255,.12);border-radius:30px;padding:28px;box-shadow:0 20px 50px rgba(0,0,0,.45)}
 
     .topbar{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:18px;position:sticky;top:0;z-index:10;padding:10px 0;background:linear-gradient(180deg,rgba(6,17,31,.96),rgba(6,17,31,.74),transparent);backdrop-filter:blur(8px)}
-    .brand{display:flex;flex-direction:column;gap:2px}
-    .brand strong{font-size:22px;letter-spacing:-.02em}
-    .brand span{color:var(--muted);font-size:13px;font-weight:700}
-    .topActions{display:flex;gap:8px;flex-wrap:wrap;justify-content:flex-end}
+    .brand{display:flex;flex-direction:column;gap:2px}.brand strong{font-size:22px;letter-spacing:-.02em}.brand span{color:var(--muted);font-size:13px;font-weight:800}.topActions{display:flex;gap:8px;flex-wrap:wrap;justify-content:flex-end}.sessionChip{display:inline-flex;gap:8px;align-items:center;border:1px solid rgba(72,226,255,.24);background:rgba(72,226,255,.07);border-radius:999px;padding:8px 12px;color:#dff9ff;font-weight:950;font-size:12px;letter-spacing:.06em}
 
-    .grid{display:grid;gap:16px}
-    .lineGrid{grid-template-columns:repeat(auto-fit,minmax(135px,1fr))}
-    .card{
-      border:1px solid rgba(255,255,255,.12);
-      background:linear-gradient(160deg,rgba(16,36,60,.92),rgba(11,26,46,.86));
-      border-radius:var(--radius);
-      box-shadow:var(--shadow);
-      padding:18px;
-    }
-    .sectionTitle{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:14px}
-    .sectionTitle h2,.sectionTitle h3{margin:0;font-size:20px;letter-spacing:-.02em}
-    .sectionTitle small{color:var(--muted);font-weight:800}
-    .lineBtn{height:110px;font-size:28px;border-radius:24px;background:linear-gradient(160deg,#12345a,#0b2039);border:1px solid rgba(72,226,255,.18);box-shadow:0 18px 35px rgba(0,0,0,.28)}
-    .lineBtn span{display:block;font-size:12px;color:var(--muted);margin-top:8px;letter-spacing:.12em}
+    .grid{display:grid;gap:16px}.lineGrid{grid-template-columns:repeat(auto-fit,minmax(135px,1fr))}.card{border:1px solid rgba(255,255,255,.12);background:linear-gradient(160deg,rgba(16,36,60,.92),rgba(11,26,46,.86));border-radius:var(--radius);box-shadow:var(--shadow);padding:18px}.sectionTitle{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:14px}.sectionTitle h2,.sectionTitle h3{margin:0;font-size:20px;letter-spacing:-.02em}.sectionTitle small{color:var(--muted);font-weight:900}.lineBtn{height:110px;font-size:28px;border-radius:24px;background:linear-gradient(160deg,#12345a,#0b2039);border:1px solid rgba(72,226,255,.18);box-shadow:0 18px 35px rgba(0,0,0,.28)}.lineBtn span{display:block;font-size:12px;color:var(--muted);margin-top:8px;letter-spacing:.12em}
 
-    label{display:block;color:#cfe3f8;font-weight:900;font-size:12px;letter-spacing:.09em;text-transform:uppercase;margin-bottom:8px}
-    input,select,textarea{
-      width:100%;
-      border:1px solid rgba(255,255,255,.15);
-      background:#071829;
-      color:var(--text);
-      border-radius:16px;
-      min-height:52px;
-      padding:12px 14px;
-      font-size:17px;
-      outline:none;
-    }
-    textarea{min-height:98px;resize:vertical}
-    input:focus,select:focus,textarea:focus{border-color:rgba(37,168,255,.75);box-shadow:0 0 0 4px rgba(37,168,255,.12)}
-    .formGrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:14px}
-    .wide{grid-column:1/-1}
+    label{display:block;color:#cfe3f8;font-weight:950;font-size:12px;letter-spacing:.09em;text-transform:uppercase;margin-bottom:8px}input,select,textarea{width:100%;border:1px solid rgba(255,255,255,.15);background:#071829;color:var(--text);border-radius:16px;min-height:52px;padding:12px 14px;font-size:17px;outline:none}textarea{min-height:100px;resize:vertical}input:focus,select:focus,textarea:focus{border-color:rgba(37,168,255,.75);box-shadow:0 0 0 4px rgba(37,168,255,.12)}.formGrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:14px}.wide{grid-column:1/-1}
 
-    .pillRow{display:flex;flex-wrap:wrap;gap:10px}
-    .pill{padding:13px 16px;border-radius:16px;border:1px solid rgba(255,255,255,.15);background:rgba(255,255,255,.07);font-weight:950;cursor:pointer;user-select:none}
-    .pill.active{background:linear-gradient(135deg,var(--blue),var(--blue2));border-color:transparent;box-shadow:0 10px 24px rgba(37,168,255,.25)}
-    .pill.green.active{background:linear-gradient(135deg,#29d17d,#0d8f4f)}
-    .pill.yellow.active{background:linear-gradient(135deg,#ffd34d,#c97900);color:#112033}
-    .pill.blue.active{background:linear-gradient(135deg,#48e2ff,#0e81d9)}
+    .pillRow{display:flex;flex-wrap:wrap;gap:10px}.pill{padding:13px 16px;border-radius:16px;border:1px solid rgba(255,255,255,.15);background:rgba(255,255,255,.07);font-weight:950;cursor:pointer;user-select:none}.pill.active{background:linear-gradient(135deg,var(--blue),var(--blue2));border-color:transparent;box-shadow:0 10px 24px rgba(37,168,255,.25)}.pill.green.active{background:linear-gradient(135deg,#29d17d,#0d8f4f)}.pill.yellow.active{background:linear-gradient(135deg,#ffd34d,#c97900);color:#112033}.pill.blue.active{background:linear-gradient(135deg,#48e2ff,#0e81d9)}
+    .statusBadge{display:inline-flex;align-items:center;gap:8px;border-radius:999px;padding:8px 12px;font-weight:950;font-size:12px;letter-spacing:.08em;border:1px solid rgba(255,255,255,.15)}.st-abierto{background:rgba(41,209,125,.13);color:#a8ffd1;border-color:rgba(41,209,125,.35)}.st-incompleto{background:rgba(255,211,77,.13);color:#ffe9a3;border-color:rgba(255,211,77,.35)}.st-cerrado{background:rgba(159,182,207,.13);color:#e9f3ff;border-color:rgba(159,182,207,.25)}.st-observacion{background:rgba(72,226,255,.13);color:#c8f8ff;border-color:rgba(72,226,255,.35)}.st-retenido{background:rgba(255,211,77,.18);color:#ffe9a3;border-color:rgba(255,211,77,.45)}
 
-    .statusBadge{display:inline-flex;align-items:center;gap:8px;border-radius:999px;padding:8px 12px;font-weight:950;font-size:12px;letter-spacing:.08em;border:1px solid rgba(255,255,255,.15)}
-    .st-abierto{background:rgba(41,209,125,.13);color:#a8ffd1;border-color:rgba(41,209,125,.35)}
-    .st-incompleto{background:rgba(255,211,77,.13);color:#ffe9a3;border-color:rgba(255,211,77,.35)}
-    .st-cerrado{background:rgba(159,182,207,.13);color:#e9f3ff;border-color:rgba(159,182,207,.25)}
-    .st-observacion{background:rgba(72,226,255,.13);color:#c8f8ff;border-color:rgba(72,226,255,.35)}
-    .st-retenido{background:rgba(255,211,77,.18);color:#ffe9a3;border-color:rgba(255,211,77,.45)}
+    .tirajeList,.packageList{display:grid;gap:12px}.tirajeItem{display:grid;grid-template-columns:1fr auto;gap:14px;align-items:center;border:1px solid rgba(255,255,255,.10);background:rgba(255,255,255,.045);border-radius:20px;padding:15px}.tirajeItem strong{font-size:19px}.tirajeItem p{margin:5px 0 0;color:var(--muted);font-weight:750}.packageItem{border:1px solid rgba(255,255,255,.11);background:rgba(255,255,255,.045);border-radius:20px;padding:14px;display:grid;gap:10px}.packageTop{display:flex;justify-content:space-between;gap:10px;align-items:flex-start;flex-wrap:wrap}.packageTop strong{font-size:18px}.miniStats{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:8px}.stat{background:rgba(0,0,0,.18);border:1px solid rgba(255,255,255,.08);border-radius:14px;padding:10px}.stat small{display:block;color:var(--muted);font-weight:900;font-size:11px;letter-spacing:.08em;text-transform:uppercase}.stat b{font-size:20px}
 
-    .tirajeList{display:grid;gap:12px}
-    .tirajeItem{display:grid;grid-template-columns:1fr auto;gap:14px;align-items:center;border:1px solid rgba(255,255,255,.10);background:rgba(255,255,255,.045);border-radius:20px;padding:15px}
-    .tirajeItem strong{font-size:19px}
-    .tirajeItem p{margin:5px 0 0;color:var(--muted);font-weight:750}
-
-    .packageList{display:grid;gap:12px}
-    .packageItem{border:1px solid rgba(255,255,255,.11);background:rgba(255,255,255,.045);border-radius:20px;padding:14px;display:grid;gap:10px}
-    .packageTop{display:flex;justify-content:space-between;gap:10px;align-items:flex-start;flex-wrap:wrap}
-    .packageTop strong{font-size:18px}
-    .miniStats{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:8px}
-    .stat{background:rgba(0,0,0,.18);border:1px solid rgba(255,255,255,.08);border-radius:14px;padding:10px}
-    .stat small{display:block;color:var(--muted);font-weight:900;font-size:11px;letter-spacing:.08em;text-transform:uppercase}
-    .stat b{font-size:20px}
-
-    .stickySave{position:fixed;left:0;right:0;bottom:0;z-index:20;background:linear-gradient(180deg,transparent,rgba(5,11,20,.92) 24%,rgba(5,11,20,.98));padding:18px;display:flex;justify-content:center;pointer-events:none}
-    .stickySave .bar{max-width:1180px;width:100%;display:flex;gap:10px;justify-content:flex-end;pointer-events:auto;flex-wrap:wrap}
-
-    .toast{position:fixed;left:50%;bottom:88px;transform:translateX(-50%);z-index:40;background:#071829;border:1px solid rgba(72,226,255,.35);box-shadow:var(--shadow);border-radius:16px;padding:14px 18px;font-weight:900;color:#eafaff;opacity:0;pointer-events:none;transition:.25s}
-    .toast.show{opacity:1;bottom:104px}
-
-    @media(max-width:680px){
-      body{padding:12px}
-      .topbar{align-items:flex-start;flex-direction:column}
-      .topActions{width:100%}
-      .topActions button{flex:1}
-      .tirajeItem{grid-template-columns:1fr}
-      .heroCard{padding:32px 18px}
-    }
+    .paletsBox{border:1px solid rgba(72,226,255,.26);background:linear-gradient(135deg,rgba(72,226,255,.10),rgba(0,119,217,.06));border-radius:20px;padding:14px;margin-top:14px}.paletsResult{margin-top:10px;color:#dff9ff;font-weight:900;display:none}.stickySave{position:fixed;left:0;right:0;bottom:0;z-index:20;background:linear-gradient(180deg,transparent,rgba(5,11,20,.92) 24%,rgba(5,11,20,.98));padding:18px;display:flex;justify-content:center;pointer-events:none}.stickySave .bar{max-width:1180px;width:100%;display:flex;gap:10px;justify-content:flex-end;pointer-events:auto;flex-wrap:wrap}.toast{position:fixed;left:50%;bottom:88px;transform:translateX(-50%);z-index:1000;background:#071829;border:1px solid rgba(72,226,255,.35);box-shadow:var(--shadow);border-radius:16px;padding:14px 18px;font-weight:900;color:#eafaff;opacity:0;pointer-events:none;transition:.25s}.toast.show{opacity:1;bottom:104px}.watermark{position:fixed;right:16px;bottom:14px;z-index:5;font-size:12px;font-weight:950;color:rgba(255,255,255,.28);letter-spacing:.08em;pointer-events:none}
+    @media(max-width:680px){body{padding:12px}.topbar{align-items:flex-start;flex-direction:column}.topActions{width:100%}.topActions button{flex:1}.tirajeItem{grid-template-columns:1fr}.splashCard{padding:32px 18px}.splash::before{font-size:20vw;transform:rotate(-10deg)}}
   </style>
 </head>
 <body>
-  <div id="turnoOverlay" style="position:fixed;inset:0;z-index:999;background:rgba(3,10,18,.92);backdrop-filter:blur(10px);display:flex;align-items:center;justify-content:center;padding:18px;">
-    <div style="width:min(520px,100%);background:linear-gradient(160deg,#10243c,#071426);border:1px solid rgba(255,255,255,.12);border-radius:30px;padding:28px;box-shadow:0 20px 50px rgba(0,0,0,.45)">
-      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:18px">
-        <div>
-          <div style="font-size:34px;font-weight:950;letter-spacing:-.04em">INICIO TURNO</div>
-          <div style="color:#9fb6cf;font-weight:700">BZDO · Control Cola</div>
-        </div>
-        <div style="font-size:12px;color:#48e2ff;font-weight:900;letter-spacing:.12em">By Rubén D.® 268</div>
+  <div id="turnoOverlay" class="turnoOverlay hidden">
+    <div class="turnoBox">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:18px;gap:14px">
+        <div><div style="font-size:34px;font-weight:950;letter-spacing:-.04em">INICIO TURNO</div><div style="color:#9fb6cf;font-weight:800">BZDO · Control Cola</div></div>
+        <div style="font-size:12px;color:#48e2ff;font-weight:950;letter-spacing:.12em;text-align:right">By Rubén D.® 268</div>
       </div>
-
       <div class="formGrid">
-        <div>
-          <label>Línea</label>
-          <select id="inicioLinea">
-            <option>LA15</option>
-            <option>LA16</option>
-            <option>LA17</option>
-            <option>LA20</option>
-            <option>LA21</option>
-            <option>LA25</option>
-            <option>LP02</option>
-            <option>LP03</option>
-            <option>LP04</option>
-          </select>
-        </div>
-        <div>
-          <label>Turno</label>
-          <select id="inicioTurno">
-            <option>Mañana</option>
-            <option>Tarde</option>
-            <option>Noche</option>
-          </select>
-        </div>
-        <div class="wide">
-          <label>Número operario</label>
-          <input id="inicioOperario" inputmode="numeric" placeholder="Ej: 27">
-        </div>
-      </div>
-
-      <br>
-      <button style="width:100%" onclick="startTurno()">ENTRAR AL SISTEMA</button>
+        <div><label>Línea</label><select id="inicioLinea"><option>LA15</option><option>LA16</option><option>LA17</option><option>LA20</option><option>LA21</option><option>LA25</option><option>LP02</option><option>LP03</option><option>LP04</option></select></div>
+        <div><label>Turno</label><select id="inicioTurno"><option>Mañana</option><option>Tarde</option><option>Noche</option></select></div>
+        <div class="wide"><label>Número operario</label><input id="inicioOperario" inputmode="numeric" placeholder="Ej: 27"></div>
+      </div><br>
+      <button style="width:100%" onclick="startTurno()">INICIAR TURNO</button>
+      <br><br>
+      <button class="btnGhost" style="width:100%" onclick="closeTurnoOverlay()">Cancelar</button>
     </div>
   </div>
+
   <div class="app">
-    <section id="screenHome" class="hero">
-      <div class="heroCard">
-        <span class="badge">CONTROL COLA · BETA</span>
-        <h1>BZDO</h1>
-        <p class="sub">Parte digital de Barnizado / Litografía</p>
-        <button onclick="go('screenLines')">ENTRAR</button>
+    <section id="screenSplash" class="splash">
+      <div class="splashCard">
+        <div class="logoCircle">BZ</div>
+        <span class="badge">SECCIÓN · BARNIZADO</span>
+        <h1>BARNIZADO</h1>
+        <p class="sub">Parte digital de cola · BZDO / Litografía</p>
+        <button onclick="showTurnoOverlay()">ENTRAR</button>
+        <div class="waterBig">By Rubén D.® 268</div>
       </div>
     </section>
 
     <section id="screenLines" class="hidden">
       <div class="topbar">
-        <div class="brand"><strong>Seleccionar línea</strong><span>Barnizado / Litografía</span></div>
-        <div class="topActions"><button class="btnGhost" onclick="go('screenHome')">Inicio</button></div>
+        <div class="brand"><strong>Seleccionar línea</strong><span id="sessionText">Sin turno iniciado</span></div>
+        <div class="topActions"><button class="btnGhost" onclick="go('screenSplash')">Inicio</button><button onclick="showTurnoOverlay()">Inicio turno</button></div>
       </div>
-
-      <div class="card">
-        <div class="sectionTitle"><h2>Líneas de barnizado</h2><small>LA</small></div>
-        <div class="grid lineGrid" id="barnizadoLines"></div>
-      </div>
-
-      <br>
-      <div class="card">
-        <div class="sectionTitle"><h2>Líneas de litografía</h2><small>LP</small></div>
-        <div class="grid lineGrid" id="litoLines"></div>
-      </div>
+      <div class="card"><div class="sectionTitle"><h2>Líneas de barnizado</h2><small>LA</small></div><div class="grid lineGrid" id="barnizadoLines"></div></div><br>
+      <div class="card"><div class="sectionTitle"><h2>Líneas de litografía</h2><small>LP</small></div><div class="grid lineGrid" id="litoLines"></div></div>
     </section>
 
     <section id="screenPanel" class="hidden">
       <div class="topbar">
         <div class="brand"><strong id="panelTitle">BZDO</strong><span id="panelSub">Panel de línea</span></div>
-        <div class="topActions">
-          <button class="btnGhost" onclick="go('screenLines')">Cambiar línea</button>
-          <button onclick="newTiraje()">Nuevo tiraje</button>
-        </div>
+        <div class="topActions"><span class="sessionChip" id="sessionChip">Turno</span><button class="btnGhost" onclick="go('screenLines')">Cambiar línea</button><button onclick="newTiraje()">Nuevo tiraje</button><button class="btnOrange" onclick="finalTurno()">Final turno</button></div>
       </div>
-
-      <div class="card">
-        <div class="sectionTitle"><h2>Tirajes de esta línea</h2><small id="tirajeCount">0</small></div>
-        <div id="tirajeList" class="tirajeList"></div>
-      </div>
+      <div class="card"><div class="sectionTitle"><h2>Tirajes de esta línea</h2><small id="tirajeCount">0</small></div><div id="tirajeList" class="tirajeList"></div></div>
     </section>
 
     <section id="screenEditor" class="hidden">
       <div class="topbar">
         <div class="brand"><strong id="editorTitle">Tiraje</strong><span id="editorSub">Parte principal BZDO</span></div>
-        <div class="topActions">
-          <button class="btnGhost" onclick="openPanel(currentLine)">Volver</button>
-          <button class="btnYellow" onclick="toggleTirajeState('INCOMPLETO')">Incompleto</button>
-          <button class="btnGreen" onclick="toggleTirajeState('CERRADO')">Cerrar</button>
-        </div>
+        <div class="topActions"><span class="sessionChip" id="editorSessionChip">Turno</span><button class="btnGhost" onclick="openPanel(currentLine)">Volver</button><button class="btnYellow" onclick="toggleTirajeState('INCOMPLETO')">Incompleto</button><button class="btnGreen" onclick="toggleTirajeState('CERRADO')">Cerrar</button><button class="btnOrange" onclick="finalTurno()">Final turno</button></div>
       </div>
-
       <div class="grid">
-        <div class="card">
-          <div class="sectionTitle"><h2>Cabecera</h2><span id="stateBadge" class="statusBadge st-abierto">ABIERTO</span></div>
-          <div class="formGrid">
-            <div><label>Línea</label><input id="linea" readonly></div>
-            <div><label>Fecha</label><input id="fecha" type="date"></div>
-            <div><label>Turno</label><select id="turno"><option>Mañana</option><option>Tarde</option><option>Noche</option></select></div>
-            <div><label>Control cola / Nº operario</label><input id="controlCola" inputmode="numeric" placeholder="Ej: 27"></div>
-          </div>
+        <div class="card"><div class="sectionTitle"><h2>Cabecera</h2><span id="stateBadge" class="statusBadge st-abierto">ABIERTO</span></div><div class="formGrid"><div><label>Línea</label><input id="linea" readonly></div><div><label>Fecha</label><input id="fecha" type="date"></div><div><label>Turno</label><select id="turno"><option>Mañana</option><option>Tarde</option><option>Noche</option></select></div><div><label>Control cola / Nº operario</label><input id="controlCola" inputmode="numeric" placeholder="Ej: 27"></div></div></div>
+        <div class="card"><div class="sectionTitle"><h2>Datos del tiraje</h2><small>Proceso</small></div><div class="formGrid"><div><label>Orden producción / Tiraje</label><input id="orden" inputmode="numeric" placeholder="Nº tiraje"></div><div><label>Material</label><input id="material" inputmode="numeric" placeholder="37... / 31... / 32... / 38..."></div><div class="wide"><label>Aplicación</label><input id="aplicacion" placeholder="Nombre barniz / concepto"></div><div><label>Huella</label><input id="huella" placeholder="Gramaje de barniz"></div><div><label>Cara</label><div class="pillRow"><div class="pill" id="ciPill" onclick="togglePill('ciPill')">CI · Interior</div><div class="pill" id="cePill" onclick="togglePill('cePill')">CE · Exterior</div></div></div></div>
+          <div class="paletsBox"><div class="sectionTitle" style="margin-bottom:8px"><h3>Buscar color PALETS</h3><small>Simulacro beta</small></div><div class="formGrid"><div><label>Ancho</label><input id="paletAncho" inputmode="numeric" placeholder="Ej: 850"></div><div><label>Largo</label><input id="paletLargo" inputmode="numeric" placeholder="Ej: 918"></div></div><br><button class="btnGhost" onclick="buscarPaletsDemo()">Buscar color PALETS</button><div class="paletsResult" id="paletsResult"></div></div>
         </div>
-
-        <div class="card">
-          <div class="sectionTitle"><h2>Datos del tiraje</h2><small>Proceso</small></div>
-          <div class="formGrid">
-            <div><label>Orden producción / Tiraje</label><input id="orden" inputmode="numeric" placeholder="Nº tiraje"></div>
-            <div><label>Material</label><input id="material" inputmode="numeric" placeholder="37... / 31... / 32... / 38..."></div>
-            <div class="wide"><label>Aplicación</label><input id="aplicacion" placeholder="Nombre barniz / concepto"></div>
-            <div><label>Huella</label><input id="huella" placeholder="Gramaje de barniz"></div>
-            <div>
-              <label>Cara</label>
-              <div class="pillRow">
-                <div class="pill" id="ciPill" onclick="togglePill('ciPill')">CI · Interior</div>
-                <div class="pill" id="cePill" onclick="togglePill('cePill')">CE · Exterior</div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="card">
-          <div class="sectionTitle"><h2>Paquetes</h2><small>Control cola</small></div>
-          <div id="packageList" class="packageList"></div>
-          <br>
-          <button onclick="openPackageForm()">Añadir paquete</button>
-        </div>
-
-        <div id="packageForm" class="card hidden">
-          <div class="sectionTitle"><h2 id="packageFormTitle">Nuevo paquete</h2><small>Matrícula / hojas / estado</small></div>
-          <div class="formGrid">
-            <div><label>Nº paquete</label><input id="paqNumero" placeholder="Nº paquete etiqueta"></div>
-            <div><label>Matrícula actual</label><input id="paqMatricula" inputmode="numeric" placeholder="350..."></div>
-            <div><label>Predecesor</label><input id="paqPredecesor" inputmode="numeric" placeholder="350... pase anterior"></div>
-            <div><label>Hojas etiqueta</label><input id="paqEtiqueta" inputmode="numeric"></div>
-            <div><label>Hojas contador</label><input id="paqContador" inputmode="numeric"></div>
-            <div><label>Hojas sacadas revisión</label><input id="paqRevision" inputmode="numeric"></div>
-            <div><label>Buenas recuperadas</label><input id="paqBuenas" inputmode="numeric"></div>
-            <div><label>Maculas / malas</label><input id="paqMaculas" inputmode="numeric"></div>
-            <div><label>Total final</label><input id="paqTotal" inputmode="numeric" placeholder="Auto o manual"></div>
-          </div>
-
-          <br>
-          <label>Proceso físico</label>
-          <div class="pillRow">
-            <div class="pill green" id="flejePill" onclick="togglePill('flejePill')">FLEJE</div>
-            <div class="pill" id="volteoPill" onclick="togglePill('volteoPill')">VOLTEO</div>
-            <div class="pill" id="cerrarPill" onclick="togglePill('cerrarPill')">CERRAR</div>
-          </div>
-
-          <br>
-          <label>Estado visual</label>
-          <div class="pillRow">
-            <div class="pill green active" id="estadoNormal" onclick="setEstadoPaquete('NORMAL')">NORMAL</div>
-            <div class="pill blue" id="estadoObs" onclick="setEstadoPaquete('OBSERVACION')">OBSERVACIÓN AZUL</div>
-            <div class="pill yellow" id="estadoRet" onclick="setEstadoPaquete('RETENIDO')">RETENIDO / REVISIÓN</div>
-          </div>
-
-          <br>
-          <div class="formGrid">
-            <div class="wide"><label>Observaciones</label><textarea id="paqObservaciones" placeholder="Observaciones, defecto leve, etiqueta azul, etc."></textarea></div>
-          </div>
-
-          <br>
-          <div class="pillRow">
-            <button class="btnGreen" onclick="savePackage()">Guardar paquete</button>
-            <button class="btnGhost" onclick="cancelPackageForm()">Cancelar</button>
-          </div>
-        </div>
+        <div class="card"><div class="sectionTitle"><h2>Paquetes</h2><small>Control cola</small></div><div id="packageList" class="packageList"></div><br><button onclick="openPackageForm()">Añadir paquete</button></div>
+        <div id="packageForm" class="card hidden"><div class="sectionTitle"><h2 id="packageFormTitle">Nuevo paquete</h2><small>Matrícula / hojas / estado</small></div><div class="formGrid"><div><label>Nº paquete</label><input id="paqNumero" placeholder="Nº paquete etiqueta"></div><div><label>Matrícula actual</label><input id="paqMatricula" inputmode="numeric" placeholder="350..."></div><div><label>Predecesor</label><input id="paqPredecesor" inputmode="numeric" placeholder="350... pase anterior"></div><div><label>Hojas etiqueta</label><input id="paqEtiqueta" inputmode="numeric"></div><div><label>Hojas contador</label><input id="paqContador" inputmode="numeric"></div><div><label>Hojas sacadas revisión</label><input id="paqRevision" inputmode="numeric"></div><div><label>Buenas recuperadas</label><input id="paqBuenas" inputmode="numeric"></div><div><label>Maculas / malas</label><input id="paqMaculas" inputmode="numeric"></div><div><label>Total final</label><input id="paqTotal" inputmode="numeric" placeholder="Auto o manual"></div></div><br><label>Proceso físico</label><div class="pillRow"><div class="pill green" id="flejePill" onclick="togglePill('flejePill')">FLEJE</div><div class="pill" id="volteoPill" onclick="togglePill('volteoPill')">VOLTEO</div><div class="pill" id="cerrarPill" onclick="togglePill('cerrarPill')">CERRAR</div></div><br><label>Estado visual</label><div class="pillRow"><div class="pill green active" id="estadoNormal" onclick="setEstadoPaquete('NORMAL')">NORMAL</div><div class="pill blue" id="estadoObs" onclick="setEstadoPaquete('OBSERVACION')">OBSERVACIÓN AZUL</div><div class="pill yellow" id="estadoRet" onclick="setEstadoPaquete('RETENIDO')">RETENIDO / REVISIÓN</div></div><br><div class="formGrid"><div class="wide"><label>Observaciones del paquete</label><textarea id="paqObservaciones" placeholder="Observaciones, defecto leve, etiqueta azul, etc."></textarea></div></div><br><div class="pillRow"><button class="btnGreen" onclick="savePackage()">Guardar paquete</button><button class="btnGhost" onclick="cancelPackageForm()">Cancelar</button></div></div>
+        <div class="card"><div class="sectionTitle"><h2>Observaciones generales del tiraje</h2><small>Etiqueta azul / notas</small></div><textarea id="obsGenerales" placeholder="Observaciones generales del tiraje, cambios, notas para siguiente turno..."></textarea></div>
       </div>
-
-      <div class="stickySave">
-        <div class="bar">
-          <button class="btnGhost" onclick="deleteCurrentTiraje()">Borrar tiraje</button>
-          <button onclick="saveCurrentTiraje()">Guardar parte</button>
-        </div>
-      </div>
+      <div class="stickySave"><div class="bar"><button class="btnGhost" onclick="deleteCurrentTiraje()">Borrar tiraje</button><button onclick="saveCurrentTiraje()">Guardar parte</button></div></div>
     </section>
   </div>
-
-  <div id="toast" class="toast">Guardado</div>
-
-  <div style="position:fixed;right:16px;bottom:14px;z-index:5;font-size:12px;font-weight:900;color:rgba(255,255,255,.28);letter-spacing:.08em;pointer-events:none">
-    By Rubén D.® 268
-  </div>
+  <div id="toast" class="toast">Guardado</div><div class="watermark">By Rubén D.® 268</div>
 
   <script>
-    const STORAGE_KEY = 'BZDO_BETA_TIRAJES_V1';
-    const barnizado = ['LA15','LA16','LA17','LA20','LA21','LA25'];
-    const litografia = ['LP02','LP03','LP04'];
-
-    let tirajes = load();
-    let currentLine = null;
-    let currentId = null;
-    let editingPackageIndex = null;
-    let paqueteEstado = 'NORMAL';
-
-    function $(id){ return document.getElementById(id); }
-
-    function load(){
-      try { return JSON.parse(localStorage.getItem(STORAGE_KEY)) || []; }
-      catch(e){ return []; }
-    }
-    function persist(){ localStorage.setItem(STORAGE_KEY, JSON.stringify(tirajes)); }
-
-    function go(id){
-      ['screenHome','screenLines','screenPanel','screenEditor'].forEach(s => $(s).classList.add('hidden'));
-      $(id).classList.remove('hidden');
-      window.scrollTo(0,0);
-    }
-
-    function toast(msg='Guardado'){
-      const t = $('toast');
-      t.textContent = msg;
-      t.classList.add('show');
-      setTimeout(()=>t.classList.remove('show'),1800);
-    }
-
-    function renderLines(){
-      $('barnizadoLines').innerHTML = barnizado.map(l => `<button class="lineBtn" onclick="openPanel('${l}')">${l}<span>BARNIZADO</span></button>`).join('');
-      $('litoLines').innerHTML = litografia.map(l => `<button class="lineBtn" onclick="openPanel('${l}')">${l}<span>LITOGRAFÍA</span></button>`).join('');
-    }
-
-    function openPanel(line){
-      currentLine = line;
-      $('panelTitle').textContent = line;
-      $('panelSub').textContent = `${line.startsWith('LP') ? 'Litografía' : 'Barnizado'} · Tirajes guardados`;
-      renderTirajeList();
-      go('screenPanel');
-    }
-
-    function renderTirajeList(){
-      const list = tirajes.filter(t => t.linea === currentLine).sort((a,b)=>(b.updatedAt||'').localeCompare(a.updatedAt||''));
-      $('tirajeCount').textContent = `${list.length} registros`;
-      if(!list.length){
-        $('tirajeList').innerHTML = `<div class="packageItem"><strong>No hay tirajes en ${currentLine}</strong><p style="color:var(--muted);margin:0">Pulsa “Nuevo tiraje” para empezar.</p></div>`;
-        return;
-      }
-      $('tirajeList').innerHTML = list.map(t => `
-        <div class="tirajeItem">
-          <div>
-            <strong>${t.orden || 'Sin tiraje'} · ${t.aplicacion || 'Sin aplicación'}</strong>
-            <p>${t.fecha || ''} · Turno ${t.turno || '-'} · Operario ${t.controlCola || '-'} · ${t.paquetes?.length || 0} paquetes</p>
-            ${stateHtml(t.estado)}
-          </div>
-          <button onclick="openTiraje('${t.id}')">Abrir</button>
-        </div>`).join('');
-    }
-
-    function stateHtml(state){
-      const s = state || 'ABIERTO';
-      const cls = s === 'CERRADO' ? 'st-cerrado' : s === 'INCOMPLETO' ? 'st-incompleto' : 'st-abierto';
-      return `<span class="statusBadge ${cls}">${s}</span>`;
-    }
-
-    function today(){ return new Date().toISOString().slice(0,10); }
-    function newId(){ return 'bzdo_' + Date.now() + '_' + Math.random().toString(16).slice(2); }
-
-    function newTiraje(){
-      const nuevo = {
-        id:newId(),
-        linea:currentLine,
-        fecha:today(),
-        turno:'Mañana',
-        controlCola:'',
-        orden:'',
-        material:'',
-        aplicacion:'',
-        huella:'',
-        ci:false,
-        ce:false,
-        estado:'ABIERTO',
-        paquetes:[],
-        createdAt:new Date().toISOString(),
-        updatedAt:new Date().toISOString()
-      };
-      tirajes.push(nuevo);
-      persist();
-      openTiraje(nuevo.id);
-    }
-
-    function openTiraje(id){
-      currentId = id;
-      const t = getCurrent();
-      if(!t) return;
-      $('editorTitle').textContent = `${t.linea} · ${t.orden || 'Nuevo tiraje'}`;
-      $('linea').value = t.linea || '';
-      $('fecha').value = t.fecha || today();
-      $('turno').value = t.turno || 'Mañana';
-      $('controlCola').value = t.controlCola || '';
-      $('orden').value = t.orden || '';
-      $('material').value = t.material || '';
-      $('aplicacion').value = t.aplicacion || '';
-      $('huella').value = t.huella || '';
-      setActive('ciPill', !!t.ci);
-      setActive('cePill', !!t.ce);
-      renderStateBadge(t.estado);
-      renderPackages();
-      cancelPackageForm();
-      go('screenEditor');
-    }
-
-    function getCurrent(){ return tirajes.find(t => t.id === currentId); }
-
-    function readEditorToCurrent(){
-      const t = getCurrent();
-      if(!t) return;
-      t.fecha = $('fecha').value;
-      t.turno = $('turno').value;
-      t.controlCola = $('controlCola').value.trim();
-      t.orden = $('orden').value.trim();
-      t.material = $('material').value.trim();
-      t.aplicacion = $('aplicacion').value.trim();
-      t.huella = $('huella').value.trim();
-      t.ci = $('ciPill').classList.contains('active');
-      t.ce = $('cePill').classList.contains('active');
-      t.updatedAt = new Date().toISOString();
-      $('editorTitle').textContent = `${t.linea} · ${t.orden || 'Nuevo tiraje'}`;
-    }
-
-    function saveCurrentTiraje(){
-      readEditorToCurrent();
-      persist();
-      toast('Parte guardado');
-    }
-
-    ['fecha','turno','controlCola','orden','material','aplicacion','huella'].forEach(id=>{
-      window.addEventListener('DOMContentLoaded',()=>{
-        $(id).addEventListener('input',()=>{ readEditorToCurrent(); persist(); });
-        $(id).addEventListener('change',()=>{ readEditorToCurrent(); persist(); });
-      });
-    });
-
-    function togglePill(id){
-      $(id).classList.toggle('active');
-      readEditorToCurrent();
-      persist();
-    }
-    function setActive(id, val){ $(id).classList.toggle('active', val); }
-
-    function renderStateBadge(state){
-      $('stateBadge').outerHTML = stateHtml(state).replace('statusBadge','statusBadge id="stateBadge"');
-    }
-
-    function toggleTirajeState(state){
-      readEditorToCurrent();
-      const t = getCurrent();
-      if(!t) return;
-      t.estado = state;
-      t.updatedAt = new Date().toISOString();
-      persist();
-      renderStateBadge(t.estado);
-      toast(`Tiraje ${state.toLowerCase()}`);
-    }
-
-    function renderPackages(){
-      const t = getCurrent();
-      const packages = t?.paquetes || [];
-      if(!packages.length){
-        $('packageList').innerHTML = `<div class="packageItem"><strong>Sin paquetes todavía</strong><p style="margin:0;color:var(--muted)">Añade el primer paquete del tiraje.</p></div>`;
-        return;
-      }
-      $('packageList').innerHTML = packages.map((p,i)=>{
-        const estadoCls = p.estado === 'RETENIDO' ? 'st-retenido' : p.estado === 'OBSERVACION' ? 'st-observacion' : 'st-abierto';
-        return `
-        <div class="packageItem">
-          <div class="packageTop">
-            <div><strong>Paquete ${p.numero || i+1}</strong><p style="margin:4px 0 0;color:var(--muted)">Matrícula: ${p.matricula || '-'}</p></div>
-            <span class="statusBadge ${estadoCls}">${p.estado || 'NORMAL'}</span>
-          </div>
-          <div class="miniStats">
-            <div class="stat"><small>Etiqueta</small><b>${p.hojasEtiqueta || '-'}</b></div>
-            <div class="stat"><small>Contador</small><b>${p.hojasContador || '-'}</b></div>
-            <div class="stat"><small>Buenas</small><b>${p.buenas || '-'}</b></div>
-            <div class="stat"><small>Maculas</small><b>${p.maculas || '-'}</b></div>
-            <div class="stat"><small>Total</small><b>${p.totalFinal || '-'}</b></div>
-          </div>
-          <div class="pillRow">
-            ${p.fleje ? '<span class="pill active">FLEJE</span>' : ''}
-            ${p.volteo ? '<span class="pill active">VOLTEO</span>' : ''}
-            ${p.cerrar ? '<span class="pill active">CERRAR</span>' : ''}
-          </div>
-          ${p.observaciones ? `<p style="margin:0;color:#dbeeff"><b>Obs:</b> ${escapeHtml(p.observaciones)}</p>` : ''}
-          <div class="pillRow">
-            <button class="btnGhost" onclick="editPackage(${i})">Editar</button>
-            <button class="btnDanger" onclick="deletePackage(${i})">Borrar</button>
-          </div>
-        </div>`;
-      }).join('');
-    }
-
-    function escapeHtml(str){
-      return String(str).replace(/[&<>"]/g, s => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[s]));
-    }
-
-    function openPackageForm(){
-      editingPackageIndex = null;
-      paqueteEstado = 'NORMAL';
-      $('packageFormTitle').textContent = 'Nuevo paquete';
-      ['paqNumero','paqMatricula','paqPredecesor','paqEtiqueta','paqContador','paqRevision','paqBuenas','paqMaculas','paqTotal','paqObservaciones'].forEach(id=>$(id).value='');
-      ['flejePill','volteoPill','cerrarPill'].forEach(id=>setActive(id,false));
-      setEstadoPaquete('NORMAL');
-      $('packageForm').classList.remove('hidden');
-      $('packageForm').scrollIntoView({behavior:'smooth',block:'start'});
-    }
-
-    function cancelPackageForm(){
-      $('packageForm').classList.add('hidden');
-      editingPackageIndex = null;
-    }
-
-    function setEstadoPaquete(estado){
-      paqueteEstado = estado;
-      setActive('estadoNormal', estado === 'NORMAL');
-      setActive('estadoObs', estado === 'OBSERVACION');
-      setActive('estadoRet', estado === 'RETENIDO');
-    }
-
-    function calcTotalIfPossible(){
-      const contador = parseInt($('paqContador').value || '0',10);
-      const buenas = parseInt($('paqBuenas').value || '0',10);
-      if(contador || buenas){ $('paqTotal').value = String(contador + buenas); }
-    }
-
-    window.addEventListener('DOMContentLoaded',()=>{
-      ['paqContador','paqBuenas'].forEach(id=>$(id).addEventListener('input',calcTotalIfPossible));
-    });
-
-    function savePackage(){
-      readEditorToCurrent();
-      const t = getCurrent();
-      if(!t) return;
-      const p = {
-        numero:$('paqNumero').value.trim(),
-        matricula:$('paqMatricula').value.trim(),
-        predecesor:$('paqPredecesor').value.trim(),
-        hojasEtiqueta:$('paqEtiqueta').value.trim(),
-        hojasContador:$('paqContador').value.trim(),
-        hojasRevision:$('paqRevision').value.trim(),
-        buenas:$('paqBuenas').value.trim(),
-        maculas:$('paqMaculas').value.trim(),
-        totalFinal:$('paqTotal').value.trim(),
-        fleje:$('flejePill').classList.contains('active'),
-        volteo:$('volteoPill').classList.contains('active'),
-        cerrar:$('cerrarPill').classList.contains('active'),
-        estado:paqueteEstado,
-        observaciones:$('paqObservaciones').value.trim(),
-        updatedAt:new Date().toISOString()
-      };
-      if(editingPackageIndex === null) t.paquetes.push(p);
-      else t.paquetes[editingPackageIndex] = p;
-      t.updatedAt = new Date().toISOString();
-      persist();
-      renderPackages();
-      cancelPackageForm();
-      toast('Paquete guardado');
-    }
-
-    function editPackage(i){
-      const t = getCurrent();
-      const p = t.paquetes[i];
-      editingPackageIndex = i;
-      $('packageFormTitle').textContent = `Editar paquete ${p.numero || i+1}`;
-      $('paqNumero').value = p.numero || '';
-      $('paqMatricula').value = p.matricula || '';
-      $('paqPredecesor').value = p.predecesor || '';
-      $('paqEtiqueta').value = p.hojasEtiqueta || '';
-      $('paqContador').value = p.hojasContador || '';
-      $('paqRevision').value = p.hojasRevision || '';
-      $('paqBuenas').value = p.buenas || '';
-      $('paqMaculas').value = p.maculas || '';
-      $('paqTotal').value = p.totalFinal || '';
-      $('paqObservaciones').value = p.observaciones || '';
-      setActive('flejePill', !!p.fleje);
-      setActive('volteoPill', !!p.volteo);
-      setActive('cerrarPill', !!p.cerrar);
-      setEstadoPaquete(p.estado || 'NORMAL');
-      $('packageForm').classList.remove('hidden');
-      $('packageForm').scrollIntoView({behavior:'smooth',block:'start'});
-    }
-
-    function deletePackage(i){
-      if(!confirm('¿Borrar este paquete?')) return;
-      const t = getCurrent();
-      t.paquetes.splice(i,1);
-      t.updatedAt = new Date().toISOString();
-      persist();
-      renderPackages();
-      toast('Paquete borrado');
-    }
-
-    function deleteCurrentTiraje(){
-      const t = getCurrent();
-      if(!t) return;
-      const ok = prompt(`Escribe BORRAR para eliminar el tiraje ${t.orden || ''}`);
-      if(ok !== 'BORRAR') return;
-      tirajes = tirajes.filter(x => x.id !== currentId);
-      persist();
-      toast('Tiraje borrado');
-      openPanel(currentLine);
-    }
-
-    function startTurno(){
-      const linea = $('inicioLinea').value;
-      const turno = $('inicioTurno').value;
-      const operario = $('inicioOperario').value.trim();
-
-      if(!operario){
-        toast('Mete número operario');
-        return;
-      }
-
-      localStorage.setItem('BZDO_OPERARIO_ACTUAL', operario);
-      localStorage.setItem('BZDO_TURNO_ACTUAL', turno);
-      localStorage.setItem('BZDO_LINEA_ACTUAL', linea);
-
-      $('turnoOverlay').style.display = 'none';
-      openPanel(linea);
-      toast(`Turno iniciado · Operario ${operario}`);
-    }
-
-    renderLines();
+    const STORAGE_KEY='BZDO_BETA_TIRAJES_V2';
+    const OLD_KEY='BZDO_BETA_TIRAJES_V1';
+    const barnizado=['LA15','LA16','LA17','LA20','LA21','LA25']; const litografia=['LP02','LP03','LP04'];
+    let tirajes=load(); let currentLine=null; let currentId=null; let editingPackageIndex=null; let paqueteEstado='NORMAL';
+    function $(id){return document.getElementById(id)}
+    function load(){try{let v=JSON.parse(localStorage.getItem(STORAGE_KEY)); if(v) return v; let old=JSON.parse(localStorage.getItem(OLD_KEY)); return old||[]}catch(e){return[]}}
+    function persist(){localStorage.setItem(STORAGE_KEY,JSON.stringify(tirajes))}
+    function go(id){['screenSplash','screenLines','screenPanel','screenEditor'].forEach(s=>$(s).classList.add('hidden'));$(id).classList.remove('hidden');window.scrollTo(0,0);updateSessionUI()}
+    function toast(msg='Guardado'){const t=$('toast');t.textContent=msg;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),1800)}
+    function today(){return new Date().toISOString().slice(0,10)} function newId(){return 'bzdo_'+Date.now()+'_'+Math.random().toString(16).slice(2)}
+    function getSession(){return{linea:localStorage.getItem('BZDO_LINEA_ACTUAL')||'',turno:localStorage.getItem('BZDO_TURNO_ACTUAL')||'',operario:localStorage.getItem('BZDO_OPERARIO_ACTUAL')||''}}
+    function updateSessionUI(){const s=getSession(); const txt=s.operario?`Turno ${s.turno} · Operario ${s.operario}`:'Sin turno iniciado'; ['sessionText','sessionChip','editorSessionChip'].forEach(id=>{if($(id))$(id).textContent=txt})}
+    function showTurnoOverlay(){const s=getSession(); if(s.linea)$('inicioLinea').value=s.linea;if(s.turno)$('inicioTurno').value=s.turno;if(s.operario)$('inicioOperario').value=s.operario;$('turnoOverlay').classList.remove('hidden')}
+    function closeTurnoOverlay(){$('turnoOverlay').classList.add('hidden')}
+    function startTurno(){const linea=$('inicioLinea').value, turno=$('inicioTurno').value, operario=$('inicioOperario').value.trim(); if(!operario){toast('Mete número operario');return} localStorage.setItem('BZDO_OPERARIO_ACTUAL',operario);localStorage.setItem('BZDO_TURNO_ACTUAL',turno);localStorage.setItem('BZDO_LINEA_ACTUAL',linea); closeTurnoOverlay(); openPanel(linea); toast(`Turno iniciado · Operario ${operario}`)}
+    function finalTurno(){const s=getSession(); if(!s.operario){showTurnoOverlay();return} if(!confirm(`¿Finalizar turno de operario ${s.operario}?`))return; localStorage.removeItem('BZDO_OPERARIO_ACTUAL');localStorage.removeItem('BZDO_TURNO_ACTUAL'); toast('Turno finalizado'); showTurnoOverlay()}
+    function renderLines(){$('barnizadoLines').innerHTML=barnizado.map(l=>`<button class="lineBtn" onclick="openPanel('${l}')">${l}<span>BARNIZADO</span></button>`).join('');$('litoLines').innerHTML=litografia.map(l=>`<button class="lineBtn" onclick="openPanel('${l}')">${l}<span>LITOGRAFÍA</span></button>`).join('')}
+    function openPanel(line){currentLine=line; currentId=null; editingPackageIndex=null; $('panelTitle').textContent=line; $('panelSub').textContent=`${line.startsWith('LP')?'Litografía':'Barnizado'} · Tirajes guardados`; renderTirajeList(); go('screenPanel')}
+    function renderTirajeList(){const list=tirajes.filter(t=>t.linea===currentLine).sort((a,b)=>(b.updatedAt||'').localeCompare(a.updatedAt||''));$('tirajeCount').textContent=`${list.length} registros`; if(!list.length){$('tirajeList').innerHTML=`<div class="packageItem"><strong>No hay tirajes en ${currentLine}</strong><p style="color:var(--muted);margin:0">Pulsa “Nuevo tiraje” para empezar.</p></div>`;return} $('tirajeList').innerHTML=list.map(t=>`<div class="tirajeItem"><div><strong>${t.orden||'Sin tiraje'} · ${t.aplicacion||'Sin aplicación'}</strong><p>${t.fecha||''} · Turno ${t.turno||'-'} · Operario ${t.controlCola||'-'} · ${t.paquetes?.length||0} paquetes</p>${stateHtml(t.estado)}</div><button onclick="openTiraje('${t.id}')">Abrir</button></div>`).join('')}
+    function stateHtml(state){const s=state||'ABIERTO'; const cls=s==='CERRADO'?'st-cerrado':s==='INCOMPLETO'?'st-incompleto':'st-abierto'; return `<span class="statusBadge ${cls}">${s}</span>`}
+    function newTiraje(){const ses=getSession(); const nuevo={id:newId(),linea:currentLine,fecha:today(),turno:ses.turno||'Mañana',controlCola:ses.operario||'',orden:'',material:'',aplicacion:'',huella:'',ci:false,ce:false,estado:'ABIERTO',obsGenerales:'',paquetes:[],createdAt:new Date().toISOString(),updatedAt:new Date().toISOString()}; tirajes.push(nuevo); persist(); openTiraje(nuevo.id)}
+    function openTiraje(id){currentId=id; const t=getCurrent(); if(!t)return; $('editorTitle').textContent=`${t.linea} · ${t.orden||'Nuevo tiraje'}`;$('linea').value=t.linea||'';$('fecha').value=t.fecha||today();$('turno').value=t.turno||'Mañana';$('controlCola').value=t.controlCola||'';$('orden').value=t.orden||'';$('material').value=t.material||'';$('aplicacion').value=t.aplicacion||'';$('huella').value=t.huella||'';$('obsGenerales').value=t.obsGenerales||'';setActive('ciPill',!!t.ci);setActive('cePill',!!t.ce);renderStateBadge(t.estado);renderPackages();cancelPackageForm();go('screenEditor')}
+    function getCurrent(){return tirajes.find(t=>t.id===currentId)}
+    function readEditorToCurrent(){const t=getCurrent(); if(!t)return; t.fecha=$('fecha').value;t.turno=$('turno').value;t.controlCola=$('controlCola').value.trim();t.orden=$('orden').value.trim();t.material=$('material').value.trim();t.aplicacion=$('aplicacion').value.trim();t.huella=$('huella').value.trim();t.obsGenerales=$('obsGenerales').value.trim();t.ci=$('ciPill').classList.contains('active');t.ce=$('cePill').classList.contains('active');t.updatedAt=new Date().toISOString();$('editorTitle').textContent=`${t.linea} · ${t.orden||'Nuevo tiraje'}`}
+    function saveCurrentTiraje(){readEditorToCurrent();persist();toast('Parte guardado')}
+    function togglePill(id){$(id).classList.toggle('active'); if(currentId){readEditorToCurrent();persist()}}
+    function setActive(id,val){$(id).classList.toggle('active',val)}
+    function renderStateBadge(state){$('stateBadge').outerHTML=stateHtml(state).replace('statusBadge','statusBadge id="stateBadge"')}
+    function toggleTirajeState(state){readEditorToCurrent();const t=getCurrent();if(!t)return;t.estado=state;t.updatedAt=new Date().toISOString();persist();renderStateBadge(t.estado);toast(`Tiraje ${state.toLowerCase()}`)}
+    function renderPackages(){const t=getCurrent(); const packages=t?.paquetes||[]; if(!packages.length){$('packageList').innerHTML=`<div class="packageItem"><strong>Sin paquetes todavía</strong><p style="margin:0;color:var(--muted)">Añade el primer paquete del tiraje.</p></div>`;return} $('packageList').innerHTML=packages.map((p,i)=>{const estadoCls=p.estado==='RETENIDO'?'st-retenido':p.estado==='OBSERVACION'?'st-observacion':'st-abierto';return `<div class="packageItem"><div class="packageTop"><div><strong>Paquete ${p.numero||i+1}</strong><p style="margin:4px 0 0;color:var(--muted)">Matrícula: ${p.matricula||'-'}</p></div><span class="statusBadge ${estadoCls}">${p.estado||'NORMAL'}</span></div><div class="miniStats"><div class="stat"><small>Etiqueta</small><b>${p.hojasEtiqueta||'-'}</b></div><div class="stat"><small>Contador</small><b>${p.hojasContador||'-'}</b></div><div class="stat"><small>Buenas</small><b>${p.buenas||'-'}</b></div><div class="stat"><small>Maculas</small><b>${p.maculas||'-'}</b></div><div class="stat"><small>Total</small><b>${p.totalFinal||'-'}</b></div></div><div class="pillRow">${p.fleje?'<span class="pill active">FLEJE</span>':''}${p.volteo?'<span class="pill active">VOLTEO</span>':''}${p.cerrar?'<span class="pill active">CERRAR</span>':''}</div>${p.observaciones?`<p style="margin:0;color:#dbeeff"><b>Obs:</b> ${escapeHtml(p.observaciones)}</p>`:''}<div class="pillRow"><button class="btnGhost" onclick="editPackage(${i})">Editar</button><button class="btnDanger" onclick="deletePackage(${i})">Borrar</button></div></div>`}).join('')}
+    function escapeHtml(str){return String(str).replace(/[&<>"]/g,s=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[s]))}
+    function openPackageForm(){editingPackageIndex=null;paqueteEstado='NORMAL';$('packageFormTitle').textContent='Nuevo paquete';['paqNumero','paqMatricula','paqPredecesor','paqEtiqueta','paqContador','paqRevision','paqBuenas','paqMaculas','paqTotal','paqObservaciones'].forEach(id=>$(id).value='');['flejePill','volteoPill','cerrarPill'].forEach(id=>setActive(id,false));setEstadoPaquete('NORMAL');$('packageForm').classList.remove('hidden');$('packageForm').scrollIntoView({behavior:'smooth',block:'start'})}
+    function cancelPackageForm(){$('packageForm').classList.add('hidden');editingPackageIndex=null}
+    function setEstadoPaquete(estado){paqueteEstado=estado;setActive('estadoNormal',estado==='NORMAL');setActive('estadoObs',estado==='OBSERVACION');setActive('estadoRet',estado==='RETENIDO')}
+    function calcTotalIfPossible(){const contador=parseInt($('paqContador').value||'0',10);const buenas=parseInt($('paqBuenas').value||'0',10);if(contador||buenas)$('paqTotal').value=String(contador+buenas)}
+    function savePackage(){readEditorToCurrent();const t=getCurrent();if(!t)return;const p={numero:$('paqNumero').value.trim(),matricula:$('paqMatricula').value.trim(),predecesor:$('paqPredecesor').value.trim(),hojasEtiqueta:$('paqEtiqueta').value.trim(),hojasContador:$('paqContador').value.trim(),hojasRevision:$('paqRevision').value.trim(),buenas:$('paqBuenas').value.trim(),maculas:$('paqMaculas').value.trim(),totalFinal:$('paqTotal').value.trim(),fleje:$('flejePill').classList.contains('active'),volteo:$('volteoPill').classList.contains('active'),cerrar:$('cerrarPill').classList.contains('active'),estado:paqueteEstado,observaciones:$('paqObservaciones').value.trim(),updatedAt:new Date().toISOString()}; if(editingPackageIndex===null)t.paquetes.push(p);else t.paquetes[editingPackageIndex]=p;t.updatedAt=new Date().toISOString();persist();renderPackages();cancelPackageForm();toast('Paquete guardado')}
+    function editPackage(i){const t=getCurrent();const p=t.paquetes[i];editingPackageIndex=i;$('packageFormTitle').textContent=`Editar paquete ${p.numero||i+1}`;$('paqNumero').value=p.numero||'';$('paqMatricula').value=p.matricula||'';$('paqPredecesor').value=p.predecesor||'';$('paqEtiqueta').value=p.hojasEtiqueta||'';$('paqContador').value=p.hojasContador||'';$('paqRevision').value=p.hojasRevision||'';$('paqBuenas').value=p.buenas||'';$('paqMaculas').value=p.maculas||'';$('paqTotal').value=p.totalFinal||'';$('paqObservaciones').value=p.observaciones||'';setActive('flejePill',!!p.fleje);setActive('volteoPill',!!p.volteo);setActive('cerrarPill',!!p.cerrar);setEstadoPaquete(p.estado||'NORMAL');$('packageForm').classList.remove('hidden');$('packageForm').scrollIntoView({behavior:'smooth',block:'start'})}
+    function deletePackage(i){if(!confirm('¿Borrar este paquete?'))return;const t=getCurrent();t.paquetes.splice(i,1);t.updatedAt=new Date().toISOString();persist();renderPackages();toast('Paquete borrado')}
+    function deleteCurrentTiraje(){const t=getCurrent();if(!t)return;const ok=prompt(`Escribe BORRAR para eliminar el tiraje ${t.orden||''}`);if(ok!=='BORRAR')return;const line=t.linea;tirajes=tirajes.filter(x=>x.id!==currentId);persist();currentId=null;editingPackageIndex=null;cancelPackageForm();toast('Tiraje borrado');setTimeout(()=>openPanel(line),80)}
+    function buscarPaletsDemo(){const a=$('paletAncho').value.trim();const l=$('paletLargo').value.trim();const r=$('paletsResult');r.style.display='block';r.innerHTML=a&&l?`Simulacro: medida ${a} x ${l}. Aquí saldrá el color PALETS cuando integremos la app completa.`:'Mete ancho y largo para consultar color PALETS.'}
+    window.addEventListener('DOMContentLoaded',()=>{renderLines();updateSessionUI();['fecha','turno','controlCola','orden','material','aplicacion','huella','obsGenerales'].forEach(id=>$(id).addEventListener('input',()=>{readEditorToCurrent();persist()}));['fecha','turno'].forEach(id=>$(id).addEventListener('change',()=>{readEditorToCurrent();persist()}));['paqContador','paqBuenas'].forEach(id=>$(id).addEventListener('input',calcTotalIfPossible))});
   </script>
 </body>
 </html>
